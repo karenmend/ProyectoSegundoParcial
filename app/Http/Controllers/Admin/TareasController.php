@@ -190,6 +190,20 @@ class TareasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tarea = Tarea::find($id);
+        if ($tarea) {
+            if($tarea->delete()) {
+                return redirect()->
+                        route('tareas.index')->
+                        with('exito','Tarea eliminado exitosamente.');
+            }
+            return redirect()->
+                    route('tarea.index')->
+                    with('error','No se pudo eliminar tarea.');
+        }
+        return redirect()->
+                route('tarea.index')->
+                with('error','No se encotró el tarea.');
+    
     }
 }
